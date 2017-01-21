@@ -15,8 +15,8 @@ public interface CourseDao {
 	public void add(Course course);
 	public Course get(int id);
 	public List<Course> all();
-	public List<Course> all(int start,int rowCount);
+	public List<Course> all(Integer start,Integer rowCount);
 	public void update(Course course);
 	public void delete(Course course);
-
+	public Long count();
 }

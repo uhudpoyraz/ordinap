@@ -6,6 +6,7 @@ import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -52,11 +53,11 @@ public class CourseImp implements CourseDao{
 	}
 	
 	@Override
-	public List<Course> all(int start, int rowCount) {
+	public List<Course> all(Integer start, Integer rowCount) {
 		Session session=getCurrentSession();
 		TypedQuery<Course> query=session.createQuery("from Course",Course.class);
-		query.setFirstResult(start);
-		query.setMaxResults(rowCount);
+		query.setFirstResult(start!=null?start:0);
+		query.setMaxResults(rowCount!=null?rowCount:3);
 		return query.getResultList();
  	}
 	@Override
@@ -72,6 +73,20 @@ public class CourseImp implements CourseDao{
 		Session session=getCurrentSession();
 		session.delete(course);
 	}
+
+	@Override
+	public Long count(){
+		Session session=getCurrentSession();
+
+		Long rowCount = session.createQuery(
+			    "select count(c.id ) " +
+			    "from Course c ", Long.class )
+			.getSingleResult();	
+		return rowCount;
+	}
+
+
+	
 
 
 

@@ -51,7 +51,7 @@ public class UniteDaoImp implements UniteDao{
 	}
 	
 	@Override
-	public List<Unite> all(int id,int start,int rowCount) {
+	public List<Unite> all(Integer id,Integer start,Integer rowCount) {
 		Session session=getCurrentSession();
 		TypedQuery<Unite> query=session.createQuery("from Unite where courseId="+id,Unite.class);
 		query.setFirstResult(start);
@@ -72,5 +72,16 @@ public class UniteDaoImp implements UniteDao{
 		session.delete(unite);
 		
 	}
+	@Override
+	public Long count(int courseId){
+		Session session=getCurrentSession();
+
+		Long rowCount = session.createQuery(
+			    "select count(u.id ) " +
+			    "from Unite u where courseId="+courseId, Long.class )
+			.getSingleResult();	
+		return rowCount;
+	}
+
 
 }

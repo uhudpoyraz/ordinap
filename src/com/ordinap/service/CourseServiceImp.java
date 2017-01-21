@@ -48,7 +48,7 @@ public class CourseServiceImp implements CourseService{
 	
 	@Transactional
 	@Override
-	public List<Course> all(int start, int rowCount) {
+	public List<Course> all(Integer start, Integer rowCount) {
 	
 		return courseDao.all(start, rowCount);
 	}
@@ -59,5 +59,11 @@ public class CourseServiceImp implements CourseService{
 		courseDao.delete(course);
 		
 	}
-
+	@Transactional
+	@Override
+	public Long count(){
+		
+	return	courseDao.count();
+		
+	}
 }

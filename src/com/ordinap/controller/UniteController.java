@@ -44,22 +44,21 @@ public class UniteController {
 	}
 	
 
-	@RequestMapping(value={"{courseId}/{page}","{courseId}/","{courseId}"},method=RequestMethod.GET)
-	public String list(Model model,@PathVariable Optional<Integer> page,@PathVariable("courseId") Integer courseId){
-		 
-		int pageNumber; 
-		if(page.isPresent() && page.get()>1){
-			
-			pageNumber=page.get();
-		
-		}else {
-			pageNumber=1;
+	@RequestMapping(value = { "{courseId}/" }, method = RequestMethod.GET)
+	public String list(Model model,Integer page,@PathVariable("courseId") Integer courseId) {
+
+		if (page == null) {
+			page = 1;
 		}
-		int offset=20;
-		int start=offset*(pageNumber-1);
-		System.out.println("After"+pageNumber+" start="+start);
-	    model.addAttribute("list",uniteService.all(courseId,start,offset));
- 		model.addAttribute("courseId",courseId);
+		int maxResults = 2;
+		int start = maxResults * (page - 1);
+		Long count=uniteService.count(courseId);
+		int maxLinkSize=(int) Math.ceil(count/(double)maxResults);
+		model.addAttribute("list", uniteService.all(courseId,start, maxResults));
+		model.addAttribute("count", count);
+		model.addAttribute("offset", page);
+		model.addAttribute("maxLinkSize", maxLinkSize);
+		System.out.println("count:"+count+",maxResult:"+maxResults +",ceil:"+maxLinkSize);
 		return "admin/unite/list";
 	}
 	

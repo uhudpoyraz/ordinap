@@ -54,10 +54,15 @@ public class UniteServiceImp implements UniteService {
 	}
 
 	@Override
-	public List<Unite> all(int id, int start, int rowCount) {
+	public List<Unite> all(Integer id, Integer start, Integer rowCount) {
 
 		return uniteDao.all(id, start, rowCount);
 
+	}
+
+	@Override
+	public Long count(int courseId){
+		return uniteDao.count(courseId);
 	}
 
 }
