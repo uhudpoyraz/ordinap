@@ -1,18 +1,14 @@
 package com.ordinap.entity;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.annotation.Generated;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,15 +17,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="`contactType`")
-public class ContactType {
+@Table(name="`uniteToExam`")
+public class UniteToExam {
+
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-	@Column(name="`contactName`")
+	private int id;
 	
-	private String contactName;
 	@Column(updatable = false,name="`createdAt`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
@@ -40,47 +35,65 @@ public class ContactType {
 	@UpdateTimestamp
 	private Date updatedAt;
 
-	@OneToMany(mappedBy = "contactType",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
-	private Set<Profile> userProfile=new HashSet<>();
+	
+	@ManyToOne
+	@JoinColumn(name="`uniteId`", referencedColumnName = "`id`")
+	private Unite unite;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="`examTypeId`",referencedColumnName = "`id`")
+	private Unite examType;
 
-	public Integer getId() {
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getContactName() {
-		return contactName;
-	}
-
-	public void setContactName(String contactName) {
-		this.contactName = contactName;
-	}
 
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 
+
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
 
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
 
+
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<Profile> getUserProfile() {
-		return userProfile;
+
+	public Unite getUnite() {
+		return unite;
 	}
 
-	public void setUserProfile(Set<Profile> userProfile) {
-		this.userProfile = userProfile;
+
+	public void setUnite(Unite unite) {
+		this.unite = unite;
 	}
 
+
+	public Unite getExamType() {
+		return examType;
+	}
+
+
+	public void setExamType(Unite examType) {
+		this.examType = examType;
+	}
+	
+	
 }

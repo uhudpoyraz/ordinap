@@ -17,6 +17,17 @@
                         </ul>
                       </li>
                       
+                         <li class="treeview">
+                        <a href="#">
+                          <i class="fa fa-edit"></i> <span>Sınav Tip Modulü</span>
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                          <li><a href="${pageContext.request.contextPath}/admin/examtype/add"><i class="fa fa-angle-double-right"></i> Ekle</a></li>
+                          <li><a href="${pageContext.request.contextPath}/admin/examtype/"><i class="fa fa-angle-double-right"></i> Listele</a></li>
+                        </ul>
+                      </li>
+                      
                       <!-- <li class="treeview">
                         <a href="http://localhost:1337/admin/profil">
                           <i class="fa fa-edit"></i> <span>Bilgilerim</span>

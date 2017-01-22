@@ -4,11 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Generated;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,15 +18,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="`contactType`")
-public class ContactType {
-	
+@Table(name="`examType`")
+public class ExamType {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-	@Column(name="`contactName`")
+	private int id;
 	
-	private String contactName;
+	@Column(name="`examName`")
+	private String examTypeName;
+	
 	@Column(updatable = false,name="`createdAt`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
@@ -40,23 +38,23 @@ public class ContactType {
 	@UpdateTimestamp
 	private Date updatedAt;
 
-	@OneToMany(mappedBy = "contactType",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
-	private Set<Profile> userProfile=new HashSet<>();
+	@OneToMany(mappedBy = "examType")
+	private Set<UniteToExam> unites = new HashSet<UniteToExam>();
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getContactName() {
-		return contactName;
+	public String getExamTypeName() {
+		return examTypeName;
 	}
 
-	public void setContactName(String contactName) {
-		this.contactName = contactName;
+	public void setExamTypeName(String examTypeName) {
+		this.examTypeName = examTypeName;
 	}
 
 	public Date getCreatedAt() {
@@ -75,12 +73,15 @@ public class ContactType {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<Profile> getUserProfile() {
-		return userProfile;
+	public Set<UniteToExam> getUnites() {
+		return unites;
 	}
 
-	public void setUserProfile(Set<Profile> userProfile) {
-		this.userProfile = userProfile;
+	public void setUnites(Set<UniteToExam> unites) {
+		this.unites = unites;
 	}
 
+
+	
+	
 }
