@@ -1,14 +1,20 @@
 package com.ordinap.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -16,6 +22,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="`examType`")
@@ -38,8 +46,21 @@ public class ExamType {
 	@UpdateTimestamp
 	private Date updatedAt;
 
-	@OneToMany(mappedBy = "examType")
-	private Set<UniteToExam> unites = new HashSet<UniteToExam>();
+	@JsonIgnore
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name = "`uniteToExam`", 
+	joinColumns = { @JoinColumn(name = "`examTypeId`") },
+	inverseJoinColumns = { @JoinColumn(name = "`uniteId`") })
+	private List<Unite> unites = new ArrayList<Unite>();
+
+	
+	public List<Unite> getUnites() {
+		return unites;
+	}
+
+	public void setUnites(List<Unite> unites) {
+		this.unites = unites;
+	}
 
 	public int getId() {
 		return id;
@@ -72,15 +93,20 @@ public class ExamType {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	 
 
-	public Set<UniteToExam> getUnites() {
-		return unites;
+	@Override
+	public boolean equals(Object object)
+	{
+	    boolean isEqual= false;
+
+	    if (object != null && object instanceof ExamType)
+	    {
+	        isEqual = (this.getId() == ((ExamType) object).getId());
+	    }
+
+	    return isEqual;
 	}
-
-	public void setUnites(Set<UniteToExam> unites) {
-		this.unites = unites;
-	}
-
 
 	
 	

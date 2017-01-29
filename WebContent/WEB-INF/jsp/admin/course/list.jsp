@@ -37,6 +37,7 @@
             <th style="width: 10px">id</th>
             <th>Ders İsmi</th>
             <th>Uniteler</th>
+             
             <th style="width: 40px">Düzenle</th>
             <th style="width: 40px">Sil</th>
           </tr>
@@ -44,7 +45,9 @@
         <tr>
           <td><c:out value="${row.id}" /></td>
           <td><c:out value="${row.name}" /></td>
-           <td><a href="${pageContext.request.contextPath}/admin/unite/${row.id}/">listele</a></td>
+           <td><a href="${pageContext.request.contextPath}/admin/unite/${row.id}/">listele</a>-<a href="${pageContext.request.contextPath}/admin/unite/${row.id}/add">ekle</a></td>
+       
+           
           <td><a href="${pageContext.request.contextPath}/admin/course/edit/${row.id}">duzenle</a></td>
           <td><a href="${pageContext.request.contextPath}/admin/course/delete/${row.id}">sil</a></td>
  

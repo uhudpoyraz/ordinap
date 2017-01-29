@@ -47,7 +47,7 @@
         </div>
 		
 		   <div class="form-group">
-          <form:button class="btn btn-primary btn-sm">Guncelle</form:button>
+          <form:button class="btn btn-primary btn-sm">Ekle</form:button>
         </div>
 		</form:form>
         

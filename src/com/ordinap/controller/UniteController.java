@@ -1,6 +1,11 @@
 package com.ordinap.controller;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.websocket.server.PathParam;
 
@@ -14,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ordinap.entity.ExamType;
 import com.ordinap.entity.Unite;
+import com.ordinap.service.ExamTypeService;
 import com.ordinap.service.UniteService;
 
 @Controller
@@ -24,9 +31,13 @@ public class UniteController {
 	@Autowired
 	UniteService uniteService;
 	
+	@Autowired
+	ExamTypeService examTypeService;
+	
 	@RequestMapping(value="{courseId}/add",method=RequestMethod.GET)
 	public String add(@ModelAttribute("Unite") Unite unite,Model model,@PathVariable("courseId") Integer courseId){
 		
+ 		model.addAttribute("examTypes",examTypeService.all());
 		model.addAttribute("courseId",courseId);
 		
 		
@@ -34,12 +45,12 @@ public class UniteController {
 	}
 	
 	@RequestMapping(value="save/",method=RequestMethod.POST)
-	public String save(@ModelAttribute("Unite") Unite unite,@RequestParam("courseId") Integer courseId){
+	public String save(@ModelAttribute("Unite") Unite unite,@RequestParam("examtype[]") Integer[] examTypeIds,@RequestParam("courseId") Integer courseId){
 		
+	
+		System.out.println(examTypeIds.length);
 		System.out.println(courseId);
-		uniteService.add(courseId, unite);
-		
-		
+		uniteService.add(courseId,examTypeIds, unite);
 		return "redirect:/admin/unite/"+courseId+"/add";
 	}
 	
@@ -66,10 +77,13 @@ public class UniteController {
 	public String edit(@PathVariable("id") Integer id,Model model){
 		
 		Unite unite=uniteService.get(id);
+		List<ExamType> examTypes=examTypeService.all();
+		
+		model.addAttribute("examTypes",examTypes);
 		model.addAttribute("Unite",unite);
 		model.addAttribute("courseId",unite.getCourseId());
-
-		
+		model.addAttribute("uniteExamTypes",unite.getExamTypes());
+	 		 
 		return "admin/unite/edit";
 	}
 	

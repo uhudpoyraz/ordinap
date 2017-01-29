@@ -24,18 +24,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name="users")
 public class User {
-	
-	
-	
-	/*"id" int PRIMARY KEY,
-	"name" varchar(255),
-	"surname" varchar(255),
-	"password" varchar(255),
-	"username" varchar(255),
-	"type" int,
-	"createdAt" datetime,
-	"updatedAt" datetime*/
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -48,9 +37,6 @@ public class User {
 	
 	@Column(name="`email`")
 	private String email;
-	
-	@Column(name="`username`")
-	private String username;
 	
 	@Column(name="`password`")
 	private String password;
@@ -72,6 +58,10 @@ public class User {
 	 
 	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
 	private Set<Profile> userProfile=new HashSet<>();
+	
+	
+	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
+	private Set<Post> userPosts=new HashSet<>();
 
 	public Set<Profile> getUserProfile() {
 		return userProfile;
@@ -111,14 +101,6 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getPassword() {

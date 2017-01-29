@@ -19,6 +19,7 @@ public class ExamTypeController {
 	@Autowired
 	ExamTypeService examTypeService;
 	
+	
 	@RequestMapping("/add")
 	public String add(@ModelAttribute("ExamType") ExamType examType){
 		
@@ -59,9 +60,9 @@ public class ExamTypeController {
 	public String edit(Model model, @PathVariable("id") int id) {
 
 		ExamType examType = examTypeService.get(id);
-		model.addAttribute("Course", examType);
+		model.addAttribute("ExamType", examType);
 
-		return "/admin/course/edit";
+		return "/admin/examType/edit";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -69,14 +70,14 @@ public class ExamTypeController {
 
 		examTypeService.update(examType);
 		redirectAttributes.addFlashAttribute("message", "Başarıyla Güncellenmiştir.");
-		return "redirect:/admin/course/edit/" + examType.getId();
+		return "redirect:/admin/examtype/edit/" + examType.getId();
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") int id, final RedirectAttributes redirectAttributes) {
 
 		examTypeService.delete(examTypeService.get(id));
-		return "redirect:/admin/course/";
+		return "redirect:/admin/examtype/";
 	}
 
 	

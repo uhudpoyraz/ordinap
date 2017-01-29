@@ -19,6 +19,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="courses")
 public class Course {
@@ -41,6 +43,7 @@ public class Course {
 	@UpdateTimestamp
 	private Date updatedAt;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="course",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private Set<Unite> unites=new HashSet<Unite>();
 

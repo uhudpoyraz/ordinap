@@ -16,7 +16,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Bina Ekle
+      Sınav Tip Düzenle
 
     </h1>
 
@@ -40,14 +40,14 @@
 			</c:if>
 
 
-        <form:form modelAttribute="Course" action="/Ordinap/admin/course/update" method="post">
+        <form:form modelAttribute="ExamType" action="/Ordinap/admin/examtype/update" method="post">
         <!-- text input -->
         <form:input path="id" name="id" type="hidden"/>
         <div class="form-group">
-          <label>Ders İsmi</label>
-          <form:input type="text" path="name" name="name" id="name"  class="form-control"/>
+          <label>Sınav Tip İsmi</label>
+          <form:input type="text" path="examTypeName" class="form-control"/>
         </div>
-       
+        
         <div class="form-group">
           <form:button class="btn btn-primary btn-sm">Guncelle</form:button>
         </div>

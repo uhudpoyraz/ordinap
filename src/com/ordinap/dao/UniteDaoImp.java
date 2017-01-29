@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.ordinap.entity.ExamType;
 import com.ordinap.entity.Unite;
+import com.ordinap.entity.UniteToExam;
 
 @Repository
 public class UniteDaoImp implements UniteDao{
@@ -44,12 +48,17 @@ public class UniteDaoImp implements UniteDao{
 	}
 
 	@Override
-	public List<Unite> all(int id) {
+	public List<Unite> all() {
 		Session session=getCurrentSession();
-		TypedQuery<Unite> query=session.createQuery("from Unite where id="+id,Unite.class);
-		return query.getResultList();
+		TypedQuery<Unite> query=session.createQuery("from Unite",Unite.class);
+  		return query.getResultList();
 	}
-	
+	@Override
+	public List<Unite> all(Integer courseId) {
+		Session session=getCurrentSession();
+		TypedQuery<Unite> query=session.createQuery("from Unite where courseId="+courseId,Unite.class);
+  		return query.getResultList();
+	}
 	@Override
 	public List<Unite> all(Integer id,Integer start,Integer rowCount) {
 		Session session=getCurrentSession();
@@ -82,6 +91,13 @@ public class UniteDaoImp implements UniteDao{
 			.getSingleResult();	
 		return rowCount;
 	}
-
+	
+	 
+		public List<Unite> getByExamType(Integer examTypeId) {
+			Session session=getCurrentSession();
+			TypedQuery<Unite> query=session.createQuery("from Unite u INNER JOIN u.examType where courseId="+examTypeId,Unite.class);
+			return query.getResultList();
+		}
+	
 
 }

@@ -2,6 +2,7 @@ package com.ordinap.entity;
 
 import java.util.Date;
 
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,29 +18,37 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="`uniteToExam`")
-public class UniteToExam {
+@Table(name="post")
+public class Post {
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	
-	@Column(name="`uniteId`")
-	private int uniteId;
-	@Column(name="`examTypeId`")
-	private int examTypeId;
-
-	@Column(updatable = false,name="`createdAt`")
+	@Column(name="`postDescription`")
+	private String postDescription;
+	
+	@Column(name="`postImagePath`")
+	private String postImagePath;
+	
+	@Column(updatable = false, name = "`createdAt`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
-	
-	@Column(name="`updatedAt`")
+
+	@Column(name = "`updatedAt`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
+	
+	@ManyToOne
+	@JoinColumn(name = "`userId`", referencedColumnName = "`id`")
+  	private User user;
+ 	
+	@ManyToOne
+	@JoinColumn(name = "`uniteId`", referencedColumnName = "`id`")
+  	private Unite unite;
 
 	public int getId() {
 		return id;
@@ -49,20 +58,20 @@ public class UniteToExam {
 		this.id = id;
 	}
 
-	public int getUniteId() {
-		return uniteId;
+	public String getPostDescription() {
+		return postDescription;
 	}
 
-	public void setUniteId(int uniteId) {
-		this.uniteId = uniteId;
+	public void setPostDescription(String postDescription) {
+		this.postDescription = postDescription;
 	}
 
-	public int getExamTypeId() {
-		return examTypeId;
+	public String getPostImagePath() {
+		return postImagePath;
 	}
 
-	public void setExamTypeId(int examTypeId) {
-		this.examTypeId = examTypeId;
+	public void setPostImagePath(String postImagePath) {
+		this.postImagePath = postImagePath;
 	}
 
 	public Date getCreatedAt() {
@@ -81,8 +90,21 @@ public class UniteToExam {
 		this.updatedAt = updatedAt;
 	}
 
-	
- 
-	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Unite getUnite() {
+		return unite;
+	}
+
+	public void setUnite(Unite unite) {
+		this.unite = unite;
+	}
+ 	
 	
 }

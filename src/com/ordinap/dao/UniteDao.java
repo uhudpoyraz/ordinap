@@ -14,8 +14,10 @@ public interface UniteDao {
 	public void add(Unite unite);
 	public Unite get(int id);
 	public List<Unite> all(Integer id,Integer start,Integer rowCount);
-	public List<Unite> all(int id);
+	public List<Unite> all(Integer courseId);
+	public List<Unite> all();
 	public void update(Unite unite);
 	public void delete(Unite unite);
 	public Long count(int courseId);
-}
+ 
+ }

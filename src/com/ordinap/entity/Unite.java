@@ -1,23 +1,32 @@
 package com.ordinap.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "unites")
@@ -30,20 +39,9 @@ public class Unite {
 	@Column(name = "`name`")
 	private String name;
 
-	@Column(name = "`level`")
-	private int level;
-
 	@Column(name = "`courseId`" ,insertable=false, updatable=false)
 	private int courseId;
-	
-	
-	public int getCourseId() {
-		return courseId;
-	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
 
 	@Column(updatable = false, name = "`createdAt`")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -54,17 +52,38 @@ public class Unite {
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
-
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "`courseId`", referencedColumnName = "`id`")
 	private Course course;
 
+	@JsonIgnore
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name = "`uniteToExam`", 
+	joinColumns = { @JoinColumn(name = "`uniteId`") },
+	inverseJoinColumns = { @JoinColumn(name = "`examTypeId`") })
+	private List<ExamType> examTypes = new ArrayList<ExamType>();
 	
-	@OneToMany(mappedBy = "unite")
-	private Set<UniteToExam> publishers = new HashSet<UniteToExam>();
+	@OneToMany(mappedBy = "unite",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
+	private Set<Post> unitePosts=new HashSet<>();
 	
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
 	
-	
+	public List<ExamType> getExamTypes() {
+		return examTypes;
+	}
+
+	public void setExamTypes(List<ExamType> examTypes) {
+		this.examTypes = examTypes;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -79,14 +98,6 @@ public class Unite {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
 	}
 
 	public Date getCreatedAt() {
@@ -113,4 +124,6 @@ public class Unite {
 		this.course = course;
 	}
 
+
+ 
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ordinap.entity.Course;
+import com.ordinap.entity.Unite;
 
 @Repository
 public class CourseImp implements CourseDao{
@@ -21,7 +22,7 @@ public class CourseImp implements CourseDao{
 	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		
-		sessionFactory=sessionFactory;
+		this.sessionFactory=sessionFactory;
 	}
 
 	@Override
@@ -84,9 +85,7 @@ public class CourseImp implements CourseDao{
 			.getSingleResult();	
 		return rowCount;
 	}
-
-
-	
+ 
 
 
 
