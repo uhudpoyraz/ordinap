@@ -1,2 +1,4 @@
 /build/
 /target/
+/.settings/
+/WebContent/WEB-INF/ordinapservlet-servlet.xml
