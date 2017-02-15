@@ -4,16 +4,12 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.ordinap.entity.ExamType;
 import com.ordinap.entity.Unite;
-import com.ordinap.entity.UniteToExam;
+
 
 @Repository
 public class UniteDaoImp implements UniteDao{

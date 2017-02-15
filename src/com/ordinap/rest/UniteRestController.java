@@ -11,19 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ordinap.entity.Course;
 import com.ordinap.entity.Unite;
-import com.ordinap.service.CourseService;
 import com.ordinap.service.UniteService;
 
 @RestController
-@RequestMapping("rest/unite/")
+@RequestMapping("rest/unite")
 public class UniteRestController {
 	@Autowired
 	UniteService uniteService;
 	
 	
-	   @RequestMapping(value = "", method = RequestMethod.GET)  
+	   @RequestMapping(value = "/", method = RequestMethod.GET)  
 	    public ResponseEntity<List<Unite>> list() {
 	        List<Unite> unites = uniteService.all();
 	        if(unites.isEmpty()){
@@ -42,7 +40,7 @@ public class UniteRestController {
 	        return new ResponseEntity<List<Unite>>(unites, HttpStatus.OK);
 	    }
 	   
-	    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    @RequestMapping(value = "/getUniteFindById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<Unite> getUser(@PathVariable("id") Integer id) {
 	    	Unite unite = uniteService.get(id);
 	        if (unite == null) {

@@ -15,4 +15,7 @@ public interface UserDao {
 	public User get(int id);
 	public List<User> all();
 	public void update(User user);
+	public User getByEmailAndPassword(String email,String password);
+	public Long getCountByEmailAndPassword(String email,String password);
+
 }

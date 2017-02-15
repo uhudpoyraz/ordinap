@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ordinap.entity.Course;
 import com.ordinap.entity.ExamType;
-import com.ordinap.service.CourseService;
 import com.ordinap.service.ExamTypeService;
 
 @RestController
@@ -33,7 +31,7 @@ public class ExamTypeRestController {
 	 
 	 
 	     
-	    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<ExamType> getUser(@PathVariable("id") Integer id) {
 	    	ExamType examType = examTypeService.get(id);
 	        if (examType == null) {

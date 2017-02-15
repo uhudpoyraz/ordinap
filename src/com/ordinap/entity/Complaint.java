@@ -1,17 +1,13 @@
 package com.ordinap.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,18 +15,14 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name="`examType`")
-public class ExamType {
-
+@Table(name="`complaints`")
+public class Complaint {
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="`examName`")
-	private String examTypeName;
 	
 	@Column(updatable = false,name="`createdAt`")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -41,22 +33,19 @@ public class ExamType {
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
-
-	@JsonIgnore
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name = "`uniteToExam`", 
-	joinColumns = { @JoinColumn(name = "`examTypeId`") },
-	inverseJoinColumns = { @JoinColumn(name = "`uniteId`") })
-	private List<Unite> unites = new ArrayList<Unite>();
-
 	
-	public List<Unite> getUnites() {
-		return unites;
-	}
-
-	public void setUnites(List<Unite> unites) {
-		this.unites = unites;
-	}
+	
+	@ManyToOne
+	@JoinColumn(name = "`userId`", referencedColumnName = "`id`")
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "`postId`", referencedColumnName = "`id`",nullable=true)
+	private Post post;
+	
+	@ManyToOne
+	@JoinColumn(name = "`commentId`", referencedColumnName = "`id`",nullable=true)
+	private Comment comment;
 
 	public int getId() {
 		return id;
@@ -64,14 +53,6 @@ public class ExamType {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getExamTypeName() {
-		return examTypeName;
-	}
-
-	public void setExamTypeName(String examTypeName) {
-		this.examTypeName = examTypeName;
 	}
 
 	public Date getCreatedAt() {
@@ -89,21 +70,29 @@ public class ExamType {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	 
 
-	@Override
-	public boolean equals(Object object)
-	{
-	    boolean isEqual= false;
-
-	    if (object != null && object instanceof ExamType)
-	    {
-	        isEqual = (this.getId() == ((ExamType) object).getId());
-	    }
-
-	    return isEqual;
+	public User getUser() {
+		return user;
 	}
 
-	
-	
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+
 }

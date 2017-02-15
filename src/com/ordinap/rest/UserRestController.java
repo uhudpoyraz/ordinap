@@ -23,18 +23,40 @@ public class UserRestController {
 	public ResponseEntity<User> register(@RequestParam("name") String name,
 			@RequestParam("surname") String surname,
 			@RequestParam("email") String email,
-			@RequestParam("password") String password,
-			@RequestParam("type") int type){
+			@RequestParam("password") String password){
 		
 		User user=new User();
 		user.setName(name);
 		user.setSurname(surname);
 		user.setEmail(email);
 		user.setPassword(password);
-		user.setType(type);
+		user.setType(0);
 		userService.add(user);
-		
 		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="login",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> register(
+			@RequestParam("email") String email,
+			@RequestParam("password") String password){
+	 
+		User user=null;
+		
+		try{
+			
+			user=userService.getByEmailAndPassword(email, password);
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+			
+		}catch (Exception e) {
+ 
+			System.out.println("Hata:"+e.getMessage());
+			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+
+		}
+			
+	
+		
+		
 	}
 	
 }

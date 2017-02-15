@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ordinap.dao.UserDao;
-import com.ordinap.dao.UserDaoImp;
 import com.ordinap.entity.User;
 
+@Transactional
 @Service
 public class UserServiceImp implements UserService {
 
@@ -46,6 +46,18 @@ public class UserServiceImp implements UserService {
 	public void update(User user) {
 		userDao.update(user);
 		
+	}
+
+	@Override
+	public User getByEmailAndPassword(String email, String password) {
+		return userDao.getByEmailAndPassword(email, password);
+	}
+
+	@Override
+	public Long getCountByEmailAndPassword(String email, String password) {
+			
+		return userDao.getCountByEmailAndPassword(email, password);
+
 	}
 
 }

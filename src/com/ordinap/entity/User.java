@@ -1,7 +1,9 @@
 package com.ordinap.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,8 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,6 +20,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="users")
@@ -59,10 +61,14 @@ public class User {
 	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
 	private Set<Profile> userProfile=new HashSet<>();
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
 	private Set<Post> userPosts=new HashSet<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
+	private List<Comment> comments=new ArrayList<Comment>();
+	
 	public Set<Profile> getUserProfile() {
 		return userProfile;
 	}
@@ -134,5 +140,22 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	public Set<Post> getUserPosts() {
+		return userPosts;
+	}
+
+	public void setUserPosts(Set<Post> userPosts) {
+		this.userPosts = userPosts;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
 
 }

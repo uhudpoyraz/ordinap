@@ -2,9 +2,6 @@ package com.ordinap.service;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.ordinap.entity.Course;
 
 public interface CourseService {

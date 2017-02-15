@@ -6,12 +6,10 @@ import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ordinap.entity.Course;
-import com.ordinap.entity.Unite;
 
 @Repository
 public class CourseImp implements CourseDao{

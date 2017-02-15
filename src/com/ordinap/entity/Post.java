@@ -1,19 +1,22 @@
 package com.ordinap.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.annotation.Generated;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -22,7 +25,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Post {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	
@@ -49,7 +52,10 @@ public class Post {
 	@ManyToOne
 	@JoinColumn(name = "`uniteId`", referencedColumnName = "`id`")
   	private Unite unite;
-
+	
+	@OneToMany(mappedBy="post",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private List<Comment> comments=new ArrayList<Comment>();
+	
 	public int getId() {
 		return id;
 	}
@@ -105,6 +111,15 @@ public class Post {
 	public void setUnite(Unite unite) {
 		this.unite = unite;
 	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
  	
+	
 	
 }
