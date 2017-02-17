@@ -89,7 +89,16 @@ public class PostDaoImp implements PostDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public Long getCountByUser(Long userId) {
+		Session session=getCurrentSession();
+
+		Long rowCount = session.createQuery(
+			    "select count(p.id ) " +
+			    "from Post p where p.userId="+userId, Long.class ).getSingleResult();
+		return rowCount;
+	}
 	
 	
 

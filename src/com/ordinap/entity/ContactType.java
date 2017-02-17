@@ -20,21 +20,21 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="`contactType`")
+@Table(name="`contact_type`")
 public class ContactType {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name="`contactName`")
+	@Column(name="`contact_name`")
 	
 	private String contactName;
-	@Column(updatable = false,name="`createdAt`")
+	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 	
-	@Column(name="`updatedAt`")
+	@Column(name="`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;

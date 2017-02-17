@@ -46,13 +46,13 @@ public class User {
 	@Column(name="`type`")
 	private int type;
 	
-	@Column(updatable = false,name="`createdAt`")
+	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 	
 	
-	@Column(name="`updatedAt`")
+	@Column(name="`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;

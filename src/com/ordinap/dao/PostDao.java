@@ -19,4 +19,6 @@ public interface PostDao {
 	public List<Post> getFindByUntieId(Integer uniteId,Integer start,Integer rowCount);
 	public void delete(Post post);
 	public Long count();
+	public Long getCountByUser(Long userId);
+
 }

@@ -15,7 +15,7 @@ import com.ordinap.entity.Unite;
 import com.ordinap.service.UniteService;
 
 @RestController
-@RequestMapping("api/v1/unite")
+@RequestMapping("api/v1/unites")
 public class UniteRestController {
 	@Autowired
 	UniteService uniteService;
@@ -31,7 +31,7 @@ public class UniteRestController {
 	    }
 	
 
-	   @RequestMapping(value = "/getByCourseId/{courseId}", method = RequestMethod.GET)  
+	   @RequestMapping(value = "/findByCourseId/{courseId}", method = RequestMethod.GET)  
 	    public ResponseEntity<List<Unite>> listAllCourse(@PathVariable("courseId") Integer courseId) {
 	        List<Unite> unites = uniteService.all(courseId);
 	        if(unites.isEmpty()){
@@ -40,7 +40,7 @@ public class UniteRestController {
 	        return new ResponseEntity<List<Unite>>(unites, HttpStatus.OK);
 	    }
 	   
-	    @RequestMapping(value = "/getUniteFindById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<Unite> getUser(@PathVariable("id") Integer id) {
 	    	Unite unite = uniteService.get(id);
 	        if (unite == null) {

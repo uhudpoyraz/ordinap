@@ -65,4 +65,10 @@ public class PostServiceImp implements PostService {
 		return postDao.count();
 	}
 
+	@Override
+	public Long getCountByUser(Long userId) {
+		
+		return postDao.getCountByUser(userId);
+	}
+
 }

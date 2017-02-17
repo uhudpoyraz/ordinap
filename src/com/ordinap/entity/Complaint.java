@@ -24,27 +24,27 @@ public class Complaint {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(updatable = false,name="`createdAt`")
+	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 	
-	@Column(name="`updatedAt`")
+	@Column(name="`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "`userId`", referencedColumnName = "`id`")
+	@JoinColumn(name = "`user_id`", referencedColumnName = "`id`")
 	private User user;
 	
 	@ManyToOne
-	@JoinColumn(name = "`postId`", referencedColumnName = "`id`",nullable=true)
+	@JoinColumn(name = "`post_id`", referencedColumnName = "`id`",nullable=true)
 	private Post post;
 	
 	@ManyToOne
-	@JoinColumn(name = "`commentId`", referencedColumnName = "`id`",nullable=true)
+	@JoinColumn(name = "`comment_id`", referencedColumnName = "`id`",nullable=true)
 	private Comment comment;
 
 	public int getId() {

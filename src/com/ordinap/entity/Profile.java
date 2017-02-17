@@ -28,23 +28,23 @@ public class Profile {
 	@Column(name="`value`")
 	private String value;
 	
-	@Column(updatable = false,name="`createdAt`")
+	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 	
-	@Column(name="`updatedAt`")
+	@Column(name="`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
 	
  
 	@ManyToOne
-	@JoinColumn(name = "`userId`", referencedColumnName = "`id`")
+	@JoinColumn(name = "`user_id`", referencedColumnName = "`id`")
   	private User user;
 
 	@ManyToOne
-	@JoinColumn(name = "`contactTypeId`", referencedColumnName = "`id`")
+	@JoinColumn(name = "`contact_type_id`", referencedColumnName = "`id`")
   	private ContactType contactType;
 	
 	public int getId() {

@@ -17,45 +17,70 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="post")
+@Table(name = "post")
 public class Post {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	
-	@Column(name="`postDescription`")
+
+	@Column(name = "`user_id`", updatable = false, insertable = false)
+	private int userId;
+
+	@Column(name = "`post_description`")
 	private String postDescription;
-	
-	@Column(name="`postImagePath`")
+
+	@Column(name = "`post_image_path`")
 	private String postImagePath;
-	
-	@Column(updatable = false, name = "`createdAt`")
+
+	@Column(updatable = false, name = "`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 
-	@Column(name = "`updatedAt`")
+	@Column(name = "`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "`userId`", referencedColumnName = "`id`")
-  	private User user;
- 	
+	@JoinColumn(name = "`user_id`", referencedColumnName = "`id`")
+	private User user;
+
 	@ManyToOne
-	@JoinColumn(name = "`uniteId`", referencedColumnName = "`id`")
-  	private Unite unite;
-	
-	@OneToMany(mappedBy="post",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	private List<Comment> comments=new ArrayList<Comment>();
-	
+	@JoinColumn(name = "`unite_id`", referencedColumnName = "`id`")
+	private Unite unite;
+
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@org.hibernate.annotations.LazyCollection(org.hibernate.annotations.LazyCollectionOption.EXTRA)
+	private List<Comment> comments = new ArrayList<Comment>();
+
+ 
+	 @Formula("(select count(*) from comment as c where c.post_id=`id`)")
+	 public Long commentCount;
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public Long getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Long commentCount) {
+		this.commentCount = commentCount;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -119,7 +144,5 @@ public class Post {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
- 	
-	
-	
+
 }

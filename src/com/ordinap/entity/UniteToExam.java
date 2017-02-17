@@ -15,7 +15,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="`uniteToExam`")
+@Table(name="`unite_to_exam`")
 public class UniteToExam {
 
 	
@@ -24,17 +24,17 @@ public class UniteToExam {
 	private int id;
 	
 	
-	@Column(name="`uniteId`")
+	@Column(name="`unite_id`")
 	private int uniteId;
-	@Column(name="`examTypeId`")
+	@Column(name="`exam_type_id`")
 	private int examTypeId;
 
-	@Column(updatable = false,name="`createdAt`")
+	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 	
-	@Column(name="`updatedAt`")
+	@Column(name="`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;

@@ -39,30 +39,30 @@ public class Unite {
 	@Column(name = "`name`")
 	private String name;
 
-	@Column(name = "`courseId`" ,insertable=false, updatable=false)
+	@Column(name = "`course_id`" ,insertable=false, updatable=false)
 	private int courseId;
 
 
-	@Column(updatable = false, name = "`createdAt`")
+	@Column(updatable = false, name = "`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 
-	@Column(name = "`updatedAt`")
+	@Column(name = "`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "`courseId`", referencedColumnName = "`id`")
+	@JoinColumn(name = "`course_id`", referencedColumnName = "`id`")
 	private Course course;
 
 	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name = "`uniteToExam`", 
-	joinColumns = { @JoinColumn(name = "`uniteId`") },
-	inverseJoinColumns = { @JoinColumn(name = "`examTypeId`") })
+	@JoinTable(name = "`unite_to_exam`", 
+	joinColumns = { @JoinColumn(name = "`unite_id`") },
+	inverseJoinColumns = { @JoinColumn(name = "`exam_type_id`") })
 	private List<ExamType> examTypes = new ArrayList<ExamType>();
 	
 	@OneToMany(mappedBy = "unite",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)

@@ -52,12 +52,6 @@ public class UserServiceImp implements UserService {
 	public User getByEmailAndPassword(String email, String password) {
 		return userDao.getByEmailAndPassword(email, password);
 	}
-
-	@Override
-	public Long getCountByEmailAndPassword(String email, String password) {
-			
-		return userDao.getCountByEmailAndPassword(email, password);
-
-	}
+ 
 
 }

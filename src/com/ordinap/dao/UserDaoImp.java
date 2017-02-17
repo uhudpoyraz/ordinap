@@ -60,16 +60,6 @@ public class UserDaoImp implements UserDao {
 
 	}
 
-	@Override
-	public Long getCountByEmailAndPassword(String email, String password) {
-		Session session=getCurrentSession();
-
-		Long rowCount = session.createQuery(
-			    "select count(u.id ) " +
-			    "from User u where u.email="+email+" and u.password="+password, Long.class )
-			.getSingleResult();	
-		return rowCount;
-	}
 
 	@Override
 	public User getByEmailAndPassword(String email, String password) {

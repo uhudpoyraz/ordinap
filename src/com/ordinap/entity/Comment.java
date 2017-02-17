@@ -27,40 +27,40 @@ public class Comment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name="`postId`",insertable=false,updatable=false)
-	private String postId;
+	@Column(name="`post_id`",insertable=false,updatable=false)
+	private int postId;
 	
-	@Column(name="`userId`",insertable=false,updatable=false)
+	@Column(name="`user_id`",insertable=false,updatable=false)
 	private String userId;
 	
-	@Column(name="`commentDescription`")
+	@Column(name="`comment_description`")
 	private String commentDescription;
 	
-	@Column(name="`commentImagePath`")
+	@Column(name="`comment_image_path`")
 	private String commentImagePath;
 	
-	@Column(name="`isAnswer`")
+	@Column(name="`is_answer`")
 	private boolean isAnswer;
 	
-	@Column(updatable = false,name="`createdAt`")
+	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 	
 	
-	@Column(name="`updatedAt`")
+	@Column(name="`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "`postId`", referencedColumnName = "`id`")
+	@JoinColumn(name = "`post_id`", referencedColumnName = "`id`")
 	private Post post;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "`userId`", referencedColumnName = "`id`")
+	@JoinColumn(name = "`user_id`", referencedColumnName = "`id`")
 	private User user;
 
 	public int getId() {
@@ -127,11 +127,11 @@ public class Comment {
 		this.user = user;
 	}
 
-	public String getPostId() {
+	public int getPostId() {
 		return postId;
 	}
 
-	public void setPostId(String postId) {
+	public void setPostId(int postId) {
 		this.postId = postId;
 	}
 

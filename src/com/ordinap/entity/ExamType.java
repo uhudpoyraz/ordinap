@@ -22,17 +22,17 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="`examType`")
+@Table(name="`exam_type`")
 public class ExamType {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="`examName`")
+	@Column(name="`exam_name`")
 	private String examTypeName;
 	
-	@Column(updatable = false,name="`createdAt`")
+	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
@@ -44,9 +44,9 @@ public class ExamType {
 
 	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name = "`uniteToExam`", 
-	joinColumns = { @JoinColumn(name = "`examTypeId`") },
-	inverseJoinColumns = { @JoinColumn(name = "`uniteId`") })
+	@JoinTable(name = "`unite_to_exam`", 
+	joinColumns = { @JoinColumn(name = "`exam_type_id`") },
+	inverseJoinColumns = { @JoinColumn(name = "`unite_id`") })
 	private List<Unite> unites = new ArrayList<Unite>();
 
 	

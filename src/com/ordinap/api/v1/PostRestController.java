@@ -110,4 +110,15 @@ public class PostRestController {
 	    }
 	   
 	   
+	   @RequestMapping(value="/getCountByUserId/{userId}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	   public ResponseEntity<Long> getCountByUserId(@PathVariable Long userId){
+		   		
+		   	Long postCount=postService.getCountByUser(userId);
+		   
+		   
+	        return new ResponseEntity<Long>(postCount, HttpStatus.OK);
+   
+	   }
+	   
+	   
 }
