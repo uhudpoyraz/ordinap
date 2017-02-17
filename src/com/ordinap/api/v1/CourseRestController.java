@@ -1,4 +1,4 @@
-package com.ordinap.rest;
+package com.ordinap.api.v1;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import com.ordinap.entity.Course;
 import com.ordinap.service.CourseService;
 
 @RestController
-@RequestMapping("rest/course")
+@RequestMapping("api/v1/courses")
 public class CourseRestController {
 	@Autowired
 	CourseService courseService;
@@ -30,7 +30,7 @@ public class CourseRestController {
 	 
 	 
 	     
-	    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<Course> getUser(@PathVariable("id") Integer id) {
  	        Course course = courseService.get(id);
 	        if (course == null) {

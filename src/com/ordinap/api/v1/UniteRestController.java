@@ -1,4 +1,4 @@
-package com.ordinap.rest;
+package com.ordinap.api.v1;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import com.ordinap.entity.Unite;
 import com.ordinap.service.UniteService;
 
 @RestController
-@RequestMapping("rest/unite")
+@RequestMapping("api/v1/unite")
 public class UniteRestController {
 	@Autowired
 	UniteService uniteService;

@@ -1,4 +1,4 @@
-package com.ordinap.rest;	
+package com.ordinap.api.v1;	
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import com.ordinap.service.UniteService;
 import com.ordinap.service.UserService;
 
 @RestController
-@RequestMapping(value="rest/post")
+@RequestMapping(value="api/v1/posts")
 public class PostRestController {
 
 		@Autowired
@@ -33,7 +33,7 @@ public class PostRestController {
 		@Autowired
 		CommentService commentService;
 		
-	   @RequestMapping(value = "getFindPostByExamTypeId/{examTypeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)  
+	   @RequestMapping(value = "findByExamTypeId/{examTypeId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)  
 	    public ResponseEntity<List<Post>> listAllPostByExamType(@PathVariable("examTypeId") Integer examTypeId) {
 		   
 		   
@@ -44,7 +44,7 @@ public class PostRestController {
 	        return new ResponseEntity<List<Post>>(posts, HttpStatus.OK);
 	    }
 	 
-	   @RequestMapping(value = "getPostFindById/{postId}", method = RequestMethod.GET)  
+	   @RequestMapping(value = "findById/{postId}", method = RequestMethod.GET)  
 	    public ResponseEntity<Post> getPostById(@PathVariable("postId") Integer postId) {
 		   
 		   
@@ -84,7 +84,7 @@ public class PostRestController {
 	        return new ResponseEntity<Post>(post, HttpStatus.OK);
 	    }
 	   
-	   @RequestMapping(value = "comment/add/", method = RequestMethod.POST)  
+	   @RequestMapping(value = "comments/add/", method = RequestMethod.POST)  
 	    	public ResponseEntity<Comment> addComment(
 	    		@RequestParam("userId") Integer userId,
 	    		@RequestParam("postId") Integer postId,

@@ -1,4 +1,4 @@
-package com.ordinap.rest;
+package com.ordinap.api.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import com.ordinap.entity.User;
 import com.ordinap.service.UserService;
 
 @RestController
-@RequestMapping("rest/user/")
+@RequestMapping("api/v1/user/")
 public class UserRestController {
 	
 	@Autowired

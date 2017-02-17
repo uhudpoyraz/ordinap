@@ -1,4 +1,4 @@
-package com.ordinap.rest;
+package com.ordinap.api.v1;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import com.ordinap.entity.ExamType;
 import com.ordinap.service.ExamTypeService;
 
 @RestController
-@RequestMapping("rest/examtype")
+@RequestMapping("api/v1/examtypes")
 public class ExamTypeRestController {
 	@Autowired
 	ExamTypeService examTypeService; 
@@ -31,7 +31,7 @@ public class ExamTypeRestController {
 	 
 	 
 	     
-	    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<ExamType> getUser(@PathVariable("id") Integer id) {
 	    	ExamType examType = examTypeService.get(id);
 	        if (examType == null) {
