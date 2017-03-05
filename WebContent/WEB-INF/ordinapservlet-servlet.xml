@@ -25,7 +25,7 @@ xsi:schemaLocation="
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+	<bean id="jsonViewSupport" class="com.monitorjbl.json.JsonViewSupportFactoryBean"/>
  
 
 	<bean id="dataSourceId"	class="org.springframework.jdbc.datasource.DriverManagerDataSource">

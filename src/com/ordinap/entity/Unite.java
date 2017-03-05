@@ -42,18 +42,18 @@ public class Unite {
 	@Column(name = "`course_id`" ,insertable=false, updatable=false)
 	private int courseId;
 
-
+	@JsonIgnore
 	@Column(updatable = false, name = "`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
-
+	@JsonIgnore
 	@Column(name = "`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updatedAt;
 	
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "`course_id`", referencedColumnName = "`id`")
 	private Course course;
@@ -65,8 +65,9 @@ public class Unite {
 	inverseJoinColumns = { @JoinColumn(name = "`exam_type_id`") })
 	private List<ExamType> examTypes = new ArrayList<ExamType>();
 	
-	@OneToMany(mappedBy = "unite",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
-	private Set<Post> unitePosts=new HashSet<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "unite",fetch=FetchType.LAZY ,cascade = CascadeType.ALL)
+	private List<Post> unitePosts=new ArrayList<Post>();
 	
 	public int getCourseId() {
 		return courseId;

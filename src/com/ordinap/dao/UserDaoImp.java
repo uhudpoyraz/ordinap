@@ -3,7 +3,11 @@ package com.ordinap.dao;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +68,20 @@ public class UserDaoImp implements UserDao {
 	@Override
 	public User getByEmailAndPassword(String email, String password) {
 		Session session=getCurrentSession();
-		User  user = session.createQuery("from User u where u.email='"+email+"' and u.password='"+password+"'", User.class).getSingleResult();
+ 	 CriteriaBuilder builder = session.getCriteriaBuilder();
+
+	        //Create Criteria
+	        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+	        Root<User> userRoot = criteria.from(User.class);
+	        criteria.multiselect(userRoot.get("id"),
+	        		userRoot.get("name"),
+	        		userRoot.get("surname"),
+	        		userRoot.get("email"),
+	        		userRoot.get("profileImage"),
+	        		userRoot.get("token"));
+	        criteria.where(builder.equal(userRoot.get("email"), email),builder.equal(userRoot.get("password"),password));
+ 	        User user = session.createQuery(criteria).getSingleResult();
+ 
 		
 		return user;
 	}

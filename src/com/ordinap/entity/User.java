@@ -19,17 +19,23 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+ 
+ 
+ 
 @Entity
 @Table(name="users")
-public class User {
+public class User implements java.io.Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(name="`name`")
 	private String name;
@@ -43,9 +49,17 @@ public class User {
 	@Column(name="`password`")
 	private String password;
 	
+	@Column(name="`profile_image`")
+	private String profileImage;
+	
+	@Column(name="`token`")
+	private String token;
+	
 	@Column(name="`type`")
 	private int type;
 	
+	
+
 	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
@@ -58,17 +72,50 @@ public class User {
 	private Date updatedAt;
 	
 	 
-	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user",fetch=FetchType.LAZY ,cascade = CascadeType.ALL)
 	private Set<Profile> userProfile=new HashSet<>();
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
+	 
+	@OneToMany(mappedBy = "user",fetch=FetchType.LAZY ,cascade = CascadeType.ALL)
 	private Set<Post> userPosts=new HashSet<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user",fetch=FetchType.EAGER ,cascade = CascadeType.ALL)
+	 
+	@OneToMany(mappedBy = "user",fetch=FetchType.LAZY ,cascade = CascadeType.ALL)
 	private List<Comment> comments=new ArrayList<Comment>();
 	
+	@Formula("(select count(p.id) from post as p where p.user_id=`id`)")
+	private Integer postCount;
+	
+	@Formula("(select count(c.id) from comment as c where c.user_id=`id`)")
+	private Integer commentCount;
+	
+	public User(){}
+	public User(Integer id,String name,String surname,String email,String profileImage,String token){
+		this.id=id;
+		this.name=name;
+		this.surname=surname;
+		this.profileImage=profileImage;
+		this.email=email;
+		this.token=token;
+	}
+	
+	
+	public Integer getPostCount() {
+		return postCount;
+	}
+
+	public void setPostCount(Integer postCount) {
+		this.postCount = postCount;
+	}
+
+	public Integer getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
+	}
+
 	public Set<Profile> getUserProfile() {
 		return userProfile;
 	}
@@ -77,7 +124,7 @@ public class User {
 		this.userProfile = userProfile;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -156,6 +203,20 @@ public class User {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 }

@@ -1,7 +1,9 @@
 package com.ordinap.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -32,12 +34,13 @@ public class Course {
 	
 	@Column(name="`name`")
 	private String name;
-	
+	@JsonIgnore
 	@Column(updatable = false,name="`created_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createdAt;
 	
+	@JsonIgnore
 	@Column(name="`updated_at`")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
@@ -45,7 +48,7 @@ public class Course {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="course",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	private Set<Unite> unites=new HashSet<Unite>();
+	private List<Unite> unites=new ArrayList<Unite>();
 
 	public int getId() {
 		return id;
@@ -79,13 +82,14 @@ public class Course {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<Unite> getUnites() {
+	public List<Unite> getUnites() {
 		return unites;
 	}
 
-	public void setUnites(Set<Unite> unites) {
+	public void setUnites(List<Unite> unites) {
 		this.unites = unites;
 	}
+
 	
 	
 	
